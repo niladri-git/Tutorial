@@ -1,2 +1,0 @@
-  $ javac -cp .:../lib Calculator.java
-  $ java -cp .:../lib Calculator

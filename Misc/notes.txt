@@ -1,0 +1,71 @@
+$ javac -cp .:../lib Calculator.java
+$ java -cp .:../lib Calculator
+  
++++
+
+Creating and Running jars (For the source code in default pkg)
+
+$ pwd
+/c/Workspace/Git/Java
+
+$ ls *
+Misc:
+HelloWorld.java  notes.txt
+
+lib:
+Scientific.java
+
+src:
+Calculator.java  Operators.java
+
+$ cd src/
+
+$ javac -cp .:../lib Calculator.java
+
+$ cd ..
+
+$ ls *
+Misc:
+HelloWorld.java  notes.txt
+
+lib:
+Scientific.class  Scientific.java
+
+src:
+Calculator.clas   Operators.java
+Calculator.java   Operators.class
+
+$ cp lib/Scientific.class src/
+
+$ ls src/
+Calculator.class  Operators.java
+Calculator.java   Operators.class  Scientific.class
+
+$ jar -cvfe Calculator.jar Calculator *.class
+added manifest
+adding: Calculator.class(in = 1293) (out= 825)(deflated 36%)
+adding: Operators.class(in = 427) (out= 267)(deflated 37%)
+adding: Scientific.class(in = 290) (out= 219)(deflated 24%)
+
+$ jar -tvf Calculator.jar
+     0 Sun Sep 06 02:07:48 IST 2015 META-INF/
+    92 Sun Sep 06 02:07:48 IST 2015 META-INF/MANIFEST.MF
+  1293 Sun Sep 06 02:04:26 IST 2015 Calculator.class
+   427 Sun Sep 06 02:04:26 IST 2015 Operators.class
+   290 Sun Sep 06 02:06:32 IST 2015 Scientific.class
+
+$ java -jar Calculator.jar
+Enter first and second number: 1 2
+
+Enter your selection:
+
+ 1 for Addition
+ 2 for Subtraction
+ 3 for Multiplication
+ 4 for Division
+ 5 for Power
+
+Enter Choice: 1
+3
+
++++
