@@ -1,0 +1,161 @@
+$ pwd
+/c/Workspace/Git/Java/New
+
+$ find
+.
+./src
+./src/pkg1
+./src/pkg1/Class1.java
+./src/pkg1/Class2.java
+./src/pkg1/Class3.java
+./src/pkg1/Main.java
+./src/pkg2
+./src/pkg2/NewPkgClass.java
+
+$ mkdir -p build/classes build/jars
+
+$ find
+.
+./build
+./build/classes
+./build/jars
+./src
+./src/pkg1
+./src/pkg1/Class1.java
+./src/pkg1/Class2.java
+./src/pkg1/Class3.java
+./src/pkg1/Main.java
+./src/pkg2
+./src/pkg2/NewPkgClass.java
+
+$ javac -sourcepath src/ -d build/classes/ src/pkg1/*.java
+
+$ find
+.
+./build
+./build/classes
+./build/classes/pkg1
+./build/classes/pkg1/Class1.class
+./build/classes/pkg1/Class2.class
+./build/classes/pkg1/Class3.class
+./build/classes/pkg1/Main.class
+./build/classes/pkg2
+./build/classes/pkg2/NewPkgClass.class
+./build/jars
+./notes.txt
+./src
+./src/pkg1
+./src/pkg1/Class1.java
+./src/pkg1/Class2.java
+./src/pkg1/Class3.java
+./src/pkg1/Main.java
+./src/pkg2
+./src/pkg2/NewPkgClass.java
+
+$ cd build/classes/
+
+$ java pkg1.Main
+This is Main
+This is Class1
+This is Class2 -- Edited
+This is Class3
+This is New Pkg Class
+
++++
+
+$ pwd
+/c/Workspace/Git/Java/New/build/classes
+
+$ ls *
+pkg1:
+Class1.class  Class2.class  Class3.class  Main.class
+
+pkg2:
+NewPkgClass.class
+
+$ jar cvfe ../jars/Main.jar pkg1.Main *
+added manifest
+adding: pkg1/(in = 0) (out= 0)(stored 0%)
+adding: pkg1/Class1.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Class2.class(in = 411) (out= 294)(deflated 28%)
+adding: pkg1/Class3.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Main.class(in = 627) (out= 413)(deflated 34%)
+adding: pkg2/(in = 0) (out= 0)(stored 0%)
+adding: pkg2/NewPkgClass.class(in = 418) (out= 291)(deflated 30%)
+
+$ pwd
+/c/Workspace/Git/Java/New/build/jars
+
+$ jar tvf Main.jar
+     0 Sun Sep 06 19:21:50 IST 2015 META-INF/
+    91 Sun Sep 06 19:21:50 IST 2015 META-INF/MANIFEST.MF
+     0 Sun Sep 06 19:10:04 IST 2015 pkg1/
+   401 Sun Sep 06 19:10:04 IST 2015 pkg1/Class1.class
+   411 Sun Sep 06 19:10:04 IST 2015 pkg1/Class2.class
+   401 Sun Sep 06 19:10:04 IST 2015 pkg1/Class3.class
+   627 Sun Sep 06 19:10:04 IST 2015 pkg1/Main.class
+     0 Sun Sep 06 19:10:04 IST 2015 pkg2/
+   418 Sun Sep 06 19:10:04 IST 2015 pkg2/NewPkgClass.class
+
+Niladri@HOME-PC /c/Workspace/Git/Java/New/build/jars (master)
+$ java -jar Main.jar
+This is Main
+This is Class1
+This is Class2 -- Edited
+This is Class3
+This is New Pkg Class
+
++++
+
+$ jar -cvfe build/jars/Main1.jar pkg1.Main -C build/classes pkg1 -C build/classes pkg2
+added manifest
+adding: pkg1/(in = 0) (out= 0)(stored 0%)
+adding: pkg1/Class1.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Class2.class(in = 411) (out= 294)(deflated 28%)
+adding: pkg1/Class3.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Main.class(in = 627) (out= 413)(deflated 34%)
+adding: pkg2/(in = 0) (out= 0)(stored 0%)
+adding: pkg2/NewPkgClass.class(in = 418) (out= 291)(deflated 30%)
+
+$ jar tvf build/jars/Main1.jar
+     0 Sun Sep 06 19:50:04 IST 2015 META-INF/
+    91 Sun Sep 06 19:50:04 IST 2015 META-INF/MANIFEST.MF
+     0 Sun Sep 06 19:10:04 IST 2015 pkg1/
+   401 Sun Sep 06 19:10:04 IST 2015 pkg1/Class1.class
+   411 Sun Sep 06 19:10:04 IST 2015 pkg1/Class2.class
+   401 Sun Sep 06 19:10:04 IST 2015 pkg1/Class3.class
+   627 Sun Sep 06 19:10:04 IST 2015 pkg1/Main.class
+     0 Sun Sep 06 19:10:04 IST 2015 pkg2/
+   418 Sun Sep 06 19:10:04 IST 2015 pkg2/NewPkgClass.class
+
+$ java -jar build/jars/Main1.jar
+This is Main
+This is Class1
+This is Class2 -- Edited
+This is Class3
+This is New Pkg Class
+
++++
+
+$ rm -rf build/classes/* build/jars/*
+
+$ javac -sourcepath src/ -d build/classes/ src/pkg1/*.java
+
+$ jar -cvfe build/jars/Main.jar pkg1.Main -C build/classes pkg1/ -C build/classes pkg2/
+added manifest
+adding: pkg1/(in = 0) (out= 0)(stored 0%)
+adding: pkg1/Class1.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Class2.class(in = 411) (out= 294)(deflated 28%)
+adding: pkg1/Class3.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Main.class(in = 627) (out= 413)(deflated 34%)
+adding: pkg2/(in = 0) (out= 0)(stored 0%)
+adding: pkg2/NewPkgClass.class(in = 418) (out= 291)(deflated 30%)
+
+$ java -jar build/jars/Main.jar
+This is Main
+This is Class1
+This is Class2 -- Edited
+This is Class3
+This is New Pkg Class
+
++++
