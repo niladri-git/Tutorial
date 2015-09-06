@@ -1,0 +1,55 @@
+<project name="Main" basedir="." default="run">
+
+    <property name="src.dir"     value="src"/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jars"/>
+	<property name="lib.dir"     value="lib"/>
+	
+	<property name="version" value="1.0"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="ExtLib.jar"/>
+    </path>
+	
+    <property name="main-class"  value="pkg1.Main"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.dir}"/>
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <target name="jar" depends="compile">
+	
+        <mkdir dir="${jar.dir}"/>
+		
+		<buildnumber/>
+		
+        <jar destfile="${jar.dir}/${ant.project.name}-${version}.${build.number}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+		
+		<echo>************************************************************</echo>
+		<echo>***********   Created JAR: ${jar.dir}/${ant.project.name}.jar   ***********</echo>
+		<echo>************************************************************</echo>
+		
+    </target>
+
+    <target name="run" depends="jar">
+        <java fork="true" classname="${main-class}">
+
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${ant.project.name}-${version}.${build.number}.jar"/>
+            </classpath>
+			
+		</java>
+    </target>
+
+</project>
