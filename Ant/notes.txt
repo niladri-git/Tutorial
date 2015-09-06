@@ -77,3 +77,70 @@ BUILD SUCCESSFUL
 Total time: 1 second
 
 +++
+
+Building executable/runnable jar to use external libs.
+
+Note: The location of the external jar relative to the location of created project jar is imp.
+		The location of entry point is provided in the Main-Class: attribute of manifest.mf
+		The relative location of the external jar wrt the created project jar is provided in the Class-Path: attribute.
+		
+		
+$ pwd
+/c/Workspace/Git/Java/Ant
+
+$ ant clean
+Buildfile: c:\Workspace\Git\Java\Ant\build.xml
+
+clean:
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+$ find
+.
+./build.xml
+./build1.xml
+./external-bak
+./external-bak/ExtLib.class
+./external-bak/ExtLib.java
+./external-bak/README.txt
+./lib
+./lib/ExtLib.jar
+./MANIFEST.MF
+./notes.txt
+./src
+./src/pkg1
+./src/pkg1/Class1.java
+./src/pkg1/Class2.java
+./src/pkg1/Class3.java
+./src/pkg1/Main.java
+./src/pkg2
+./src/pkg2/NewPkgClass.java
+
+$ mkdir -p build/classes build/jars
+
+$ javac -cp lib/ExtLib.jar -sourcepath src/ -d build/classes/ src/pkg1/*.java src/pkg2/*.java
+
+$ cat MANIFEST.MF
+Main-Class: pkg1.Main
+Class-Path: ../../lib/ExtLib.jar
+
+$ jar cvfm build/jars/Main.jar MANIFEST.MF -C build/classes pkg1 -C build/classes pkg2
+added manifest
+adding: pkg1/(in = 0) (out= 0)(stored 0%)
+adding: pkg1/Class1.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Class2.class(in = 411) (out= 294)(deflated 28%)
+adding: pkg1/Class3.class(in = 401) (out= 283)(deflated 29%)
+adding: pkg1/Main.class(in = 680) (out= 457)(deflated 32%)
+adding: pkg2/(in = 0) (out= 0)(stored 0%)
+adding: pkg2/NewPkgClass.class(in = 427) (out= 302)(deflated 29%)
+
+$ java -jar build/jars/Main.jar
+This is Main
+This is Class1
+This is Class2 -- Edited
+This is Class3
+This is New Pkg Class -- EDIT
+I am external Lib
+
++++
