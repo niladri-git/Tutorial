@@ -1,0 +1,79 @@
+Creating and using External Libs:
+
+- Created a ext lib class in pkg external.
+- compiled and created jar ExtLib.jar
+- Updated pkg1/Main.java to use the ExtLib class.
+- Copied the ExtLib.jar to lib dir.
+
+- Compiled the pkg1/Main.java
+
+$ javac -sourcepath src/ -d build/classes/ src/pkg1/*.java
+
+- Run pkg1.Main by adding ExtLib.jar to the classpath.
+
+$ cd build/classes/
+
+$ java -cp .:../../lib/ExtLib.jar pkg1.Main
+This is Main
+This is Class1
+This is Class2 -- Edited
+This is Class3
+This is New Pkg Class -- EDIT
+I am external Lib
+
+Imp: Remember to add the current dir ( . )  to classpath
+
++++
+
+In build1.xml:
+
+Setting the classpath:
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="ExtLib.jar"/>
+    </path>
+	
+Referring the classpath:
+	
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+		
+		.....
+		.......
+		.........
+		
+		<classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${ant.project.name}.jar"/>
+        </classpath>
+		
+		
+		
+$ ant -f build1.xml
+Buildfile: c:\Workspace\Git\Java\Ant\build1.xml
+
+clean:
+   [delete] Deleting directory c:\Workspace\Git\Java\Ant\build
+
+compile:
+    [mkdir] Created dir: c:\Workspace\Git\Java\Ant\build\classes
+    [javac] Compiling 5 source files to c:\Workspace\Git\Java\Ant\build\classes
+
+jar:
+    [mkdir] Created dir: c:\Workspace\Git\Java\Ant\build\jars
+      [jar] Building jar: c:\Workspace\Git\Java\Ant\build\jars\Main.jar
+     [echo] ************************************************************
+     [echo] ***********   Created JAR: build/jars/Main.jar   ***********
+     [echo] ************************************************************
+
+run:
+     [java] This is Main
+     [java] This is Class1
+     [java] This is Class2 -- Edited
+     [java] This is Class3
+     [java] This is New Pkg Class -- EDIT
+     [java] I am external Lib
+
+BUILD SUCCESSFUL
+Total time: 1 second
+
++++
