@@ -32,6 +32,7 @@
         <jar destfile="${jar.dir}/${ant.project.name}-${version}.${build.number}.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Class-Path" value="../../lib/ExtLib.jar"/>
             </manifest>
         </jar>
 		
