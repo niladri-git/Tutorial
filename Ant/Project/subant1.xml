@@ -1,0 +1,9 @@
+ <project name="MasterBuild" default="all">
+ 
+        <target name="all">
+            <subant target="run" failonerror="false">
+              <fileset dir="." includes="*/build.xml"/>
+            </subant>
+        </target>
+		
+</project>

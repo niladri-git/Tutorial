@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="dependencies" default="all">
+    <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
+    <!-- ================================================================== -->
+    <target name="all"
+            depends="Mod1, Mod2">
+    </target>
+    <!-- ================================================================== -->
+    <target name="Mod1">
+        <ant dir="${dependencies.basedir}/Mod1" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="Mod2">
+        <ant dir="${dependencies.basedir}/Mod2" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+</project>

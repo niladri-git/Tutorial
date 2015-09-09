@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="build-common" default="default">
+
+	<import file="dependencies.xml"/>
+	
+    <target name="default" depends="dist"/>
+
+    <target name="clean">
+        <echo message="${ant.project.name} - build-common.clean"/>
+    </target>
+
+    <target name="compile">
+        <echo message="${ant.project.name} - build-common.compile"/>
+    </target>
+
+    <target name="dist" depends="compile">
+        <echo message="${ant.project.name} - build-common.dist"/>
+    </target>
+	
+	<target name="build.modules">
+        <antcall target="Mod1"/>
+        <!-- antcall target="Mod2"/ -->
+    </target>
+	
+</project>
